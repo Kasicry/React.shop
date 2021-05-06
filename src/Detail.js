@@ -20,7 +20,10 @@ function Detail(props){
 
     useEffect(()=>{
         // 2초 후에 저거 alert 창을 안보이게 해주셈
-        setTimeout(()=>{2초 후에 저거 alert 창을 안보이게 해주셈}, 2000)
+        let 타이머 = setTimeout(()=>{
+            <p>재고가 얼마 남지 않았습니다.</p>}, 2000)
+
+            // return function 어쩌구(){ 실행한코드~~} 사라질 때 실행됨
     })
 
     let {id} = useParams();
@@ -37,7 +40,7 @@ function Detail(props){
                 <제목 className="red">Detail</제목>
             </박스>
             <div className='my-alert2'>
-                <p>재고가 얼마 남지 않았습니다</p>
+                {/* {{타이머}} */}
             </div>
 
             <div className="row">
