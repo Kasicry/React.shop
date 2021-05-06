@@ -1,0 +1,46 @@
+//sass문법 왜?  1- 변수에 데이터를 저장해서 쓰자
+
+
+
+
+
+$메인칼라 : #ff0000;
+
+.red {
+    color: $메인칼라;
+}
+
+@mixin 함수() {
+    background: #eeeeee;
+    padding: 15px;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+}
+
+.my-alert{
+    @include 함수()
+}
+
+.my-alert2{
+    @extend .my-alert;
+    background: #ffe591;
+}
+
+
+
+.my-alert p{
+    margin-bottom: 0;
+}
+
+//nesting 문법
+// div.container {
+//     h4{
+//         color:blue;
+//     }
+//     p{
+//         color:green;
+//     }
+// }
+
