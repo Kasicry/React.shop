@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import { Button, Navbar, Nav, NavDropdown, Jumbotron } from 'react-bootstrap';
 import Data from './data.js'
-import {Link, Route, Switch} from 'react-router-dom';
+import {Link, Route, Switch, useHistory} from 'react-router-dom';
 import Detail from './Detail'
 import './App.css';
+import axios from 'axios';
 
 
 function App() {
@@ -32,7 +33,6 @@ function App() {
       </Navbar>
 
 
-
       <Route exact path = "/">
         <Jumbotron className="background">
           <h1>20% Season OFF</h1>
@@ -49,41 +49,58 @@ function App() {
             <div className="row">
               {
                 shoes.map((a,i)=>{
-                  return <Card shoes = {a} i={i} />
+                  return <Card shoes = {a} i={i} key={i}  />
                   // return <Card shoes = {shoes[i]} />
                 })
-              }          
-              
-            
+              }            
             </div>
+        
+            <button className ="btn btn-primary" onClick={()=>{
+
+              // 로딩중이라는 UI 띄움
+
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((result)=>{
+
+                // 로딩중이라는 UI 안보이게
+
+                axios.post('서버URL', { id : 'codingapple', pw : 1234});
+
+                console.log(result);
+                shoes변경([...shoes, ...result.data]); // shoes 카피본!!
+                // let copy = [...shoes];
+                // copy.push(result.data);
+                // shoes변경(copy);
+
+              }) //요청이 성공했을 때
+
+              .catch(()=>{
+
+                // 로딩중이라는 UI 안보이게
+
+                console.log('실패ㅜㅜ')
+              }) //요청이 실패했을 때       
+              
+            }}>더보기</button>
         </div>
 
       </Route>
 
       <Route path = "/detail/:id">
-
-      
-
-
-        <Detail shoes={shoes} />
-
-
-      </Route>
-
-
-      
-      
+        <Detail shoes={shoes}  />
+      </Route>      
     </div>
   )
 }
 
-
-
-
 function Card(props){
+
+  let history = useHistory();
+
   return(
-      <div className="col-md-4">
-          <img src={"https://codingapple1.github.io/shop/shoes"+(props.i+1)+".jpg" }width="100%" />
+      <div className="col-md-4"  onClick={()=>{history.push('/detail/'+props.shoes.id)}}>
+          <img src={'https://codingapple1.github.io/shop/shoes'+
+          (props.i+1)+'.jpg' }width="100%" />
           <h4>{props.shoes.title}</h4>
           <p>{props.shoes.content}</p>
           <p>{props.shoes.price}</p>
@@ -91,5 +108,7 @@ function Card(props){
 
   )
 }
+
+
 
 export default App;
