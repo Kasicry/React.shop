@@ -78,7 +78,7 @@ function App() {
 
                 // 로딩중이라는 UI 안보이게
 
-                console.log('실패ㅜㅜ')
+                console.log('실패했습니당 ㅜㅠ')
               }) //요청이 실패했을 때       
               
             }}>더보기</button>
